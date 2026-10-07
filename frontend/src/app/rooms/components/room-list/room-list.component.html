@@ -1,0 +1,95 @@
+<section class="rooms-page">
+  <div class="header-row">
+    <div class="title-group">
+      <h1>Rooms Directory</h1>
+      <p>Manage guest capacities, pricing tiers, and real-time room statuses.</p>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn btn-outline" (click)="exportCsv()">Export CSV</button>
+      <a routerLink="/rooms/new" class="btn btn-primary">+ Add Room</a>
+    </div>
+  </div>
+
+  <div class="table-panel">
+    <div class="table-header">
+      <span class="col col-room">Room Number</span>
+      <span class="col col-adults">Adults Capacity</span>
+      <span class="col col-kids">Children Capacity</span>
+      <span class="col col-price">Price per Night</span>
+      <span class="col col-actions-header">Actions</span>
+    </div>
+
+    @if (loading()) {
+      <div class="empty-state">Loading rooms…</div>
+    }
+    <!-- @else if (error()) {
+      <div class="empty-state error-state">Couldn't load rooms. Please try again later.</div>
+    }   -->
+    @else {
+      @for (room of rooms(); track room.id) {
+        <div class="table-row">
+        <div class="col col-room">
+          <span class="icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.33328 13.334H1.3328M12.667 13.3342L8.16135 14.4602C8.06308 14.4847 7.96053 14.4865 7.86147 14.4654C7.7624 14.4444 7.66944 14.4011 7.58962 14.3387C7.50981 14.2764 7.44524 14.1967 7.40082 14.1057C7.35641 14.0147 7.33331 13.9148 7.33328 13.8135V3.04196C7.33341 2.83941 7.37969 2.63888 7.4686 2.45689C7.55752 2.2749 7.68673 2.11555 7.84643 1.99095C8.00613 1.86634 8.19212 1.77976 8.39028 1.73777C8.58844 1.69578 8.79356 1.69948 8.99008 1.7486L11.657 2.41528C11.9454 2.48738 12.2015 2.65383 12.3845 2.88818C12.5676 3.12252 12.667 3.4113 12.667 3.70864V13.3342ZM12.667 13.3342L14.6672 13.334M7.33328 2.66715H5.33312C4.97947 2.66715 4.6403 2.80763 4.39024 3.05768C4.14017 3.30774 3.99968 3.64688 3.99968 4.00051V13.334M9.33344 8.00059H9.34011"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="room-number">Room {{ room.roomNumber }}</span>
+        </div>
+        <div class="col col-adults">{{ adultsLabel(room) }}</div>
+        <div class="col col-kids">{{ childrenLabel(room) }}</div>
+        <div class="col col-price">{{ room.price | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
+        <div class="col col-actions">
+          <a class="icon-btn" [routerLink]="['/rooms', room.id, 'edit']" aria-label="Edit room {{ room.roomNumber }}">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8 2.00006H3.33333C2.97971 2.00006 2.64057 2.14054 2.39052 2.39059C2.14048 2.64064 2 2.97977 2 3.3334V12.6667C2 13.0204 2.14048 13.3595 2.39052 13.6095C2.64057 13.8596 2.97971 14.0001 3.33333 14.0001H12.6667C13.0203 14.0001 13.3594 13.8596 13.6095 13.6095C13.8595 13.3595 14 13.0204 14 12.6667V8.00006M12.2501 1.75021C12.5153 1.485 12.875 1.336 13.2501 1.336C13.6251 1.336 13.9848 1.485 14.2501 1.75021C14.5153 2.01543 14.6643 2.37514 14.6643 2.75021C14.6643 3.12529 14.5153 3.485 14.2501 3.75021L8.2414 9.75955C8.0831 9.91771 7.88753 10.0335 7.67273 10.0962L5.7574 10.6562C5.70003 10.6729 5.63922 10.6739 5.58134 10.6591C5.52345 10.6443 5.47061 10.6142 5.42836 10.5719C5.38611 10.5297 5.35599 10.4768 5.34116 10.4189C5.32633 10.3611 5.32733 10.3002 5.34406 10.2429L5.90406 8.32755C5.96708 8.11291 6.08309 7.91759 6.2414 7.75955L12.2501 1.75021Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </a>
+          <button
+            type="button"
+            class="icon-btn"
+            (click)="deleteRoom(room)"
+            aria-label="Delete room {{ room.roomNumber }}"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12.6667 3.99968V13.3338C12.6667 13.6874 12.5262 14.0266 12.2761 14.2766C12.0261 14.5267 11.687 14.6672 11.3333 14.6672H4.66667C4.31304 14.6672 3.97391 14.5267 3.72386 14.2766C3.47381 14.0266 3.33333 13.6874 3.33333 13.3338V3.99968M2 3.99968H14M5.33333 3.99968V2.66624C5.33333 2.31259 5.47381 1.97342 5.72386 1.72336C5.97391 1.47329 6.31304 1.3328 6.66667 1.3328H9.33333C9.68696 1.3328 10.0261 1.47329 10.2761 1.72336C10.5262 1.97342 10.6667 2.31259 10.6667 2.66624V3.99968"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state-content">
+        <span class="empty-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.33328 13.334H1.3328M12.667 13.3342L8.16135 14.4602C8.06308 14.4847 7.96053 14.4865 7.86147 14.4654C7.7624 14.4444 7.66944 14.4011 7.58962 14.3387C7.50981 14.2764 7.44524 14.1967 7.40082 14.1057C7.35641 14.0147 7.33331 13.9148 7.33328 13.8135V3.04196C7.33341 2.83941 7.37969 2.63888 7.4686 2.45689C7.55752 2.2749 7.68673 2.11555 7.84643 1.99095C8.00613 1.86634 8.19212 1.77976 8.39028 1.73777C8.58844 1.69578 8.79356 1.69948 8.99008 1.7486L11.657 2.41528C11.9454 2.48738 12.2015 2.65383 12.3845 2.88818C12.5676 3.12252 12.667 3.4113 12.667 3.70864V13.3342ZM12.667 13.3342L14.6672 13.334M7.33328 2.66715H5.33312C4.97947 2.66715 4.6403 2.80763 4.39024 3.05768C4.14017 3.30774 3.99968 3.64688 3.99968 4.00051V13.334M9.33344 8.00059H9.34011"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </span>
+        <p class="empty-title">No rooms have been added yet.</p>
+        <p class="empty-subtitle">Add your first room to start managing capacities and pricing.</p>
+        <a routerLink="/rooms/new" class="btn btn-primary">+ Add Room</a>
+      </div>
+    }
+    }
+  </div>
+</section>
+

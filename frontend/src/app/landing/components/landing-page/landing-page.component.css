@@ -1,0 +1,188 @@
+:host {
+  display: block;
+  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px;
+}
+
+.hero-container {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 280px;
+  padding: 32px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: url('/images/hero-luxury-boutique.png') center / cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.hero-text p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.card {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-accent {
+  background: #faf3e3;
+  color: #dfb17f;
+}
+
+.badge-muted {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.guest-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.guest-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.guest-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.guest-subtitle {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.btn {
+  flex: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: #dfb17f;
+  color: #ffffff;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+@media (max-width: 720px) {
+  .dashboard-body {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .hero-container {
+    height: auto;
+    min-height: 200px;
+    padding: 20px;
+  }
+
+  .hero-text h1 {
+    font-size: 24px;
+  }
+
+  .hero-text p {
+    font-size: 14px;
+  }
+
+  .dashboard-cards {
+    flex-direction: column;
+  }
+
+  .guest-row {
+    flex-wrap: wrap;
+  }
+}

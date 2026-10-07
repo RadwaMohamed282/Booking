@@ -1,0 +1,47 @@
+<section class="dashboard-body">
+  <div class="hero-container">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h1>Luxury Boutique Stays</h1>
+      <p>Seamlessly coordinate checking in, checking out, and hotel directory settings.</p>
+    </div>
+  </div>
+
+  <div class="dashboard-cards">
+    <div class="card">
+      <div class="card-header">
+        <h2>Checking in Today</h2>
+        <span class="badge badge-accent">{{ checkingIn.length }} Guests</span>
+      </div>
+      <div class="list-container">
+        @for (guest of checkingIn; track guest.name) {
+          <div class="guest-row">
+            <div class="guest-info">
+              <p class="guest-name">{{ guest.name }}</p>
+              <p class="guest-subtitle">{{ guest.subtitle }}</p>
+            </div>
+            <button type="button" class="btn btn-primary">Check-In</button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Checking out Today</h2>
+        <span class="badge badge-muted">{{ checkingOut.length }} Guests</span>
+      </div>
+      <div class="list-container">
+        @for (guest of checkingOut; track guest.name) {
+          <div class="guest-row">
+            <div class="guest-info">
+              <p class="guest-name">{{ guest.name }}</p>
+              <p class="guest-subtitle">{{ guest.subtitle }}</p>
+            </div>
+            <button type="button" class="btn btn-outline">Check-Out</button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

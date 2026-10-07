@@ -1,0 +1,21 @@
+# ---- Backend (.NET) ----
+backend/bin/
+backend/obj/
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+
+# ---- Frontend (Angular / Node) ----
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# ---- Claude Code hooks ----
+.claude/hooks/hooks.log
+
+# ---- Editor / OS ----
+.vs/
+.vscode/
+*.user
+.DS_Store
+Thumbs.db

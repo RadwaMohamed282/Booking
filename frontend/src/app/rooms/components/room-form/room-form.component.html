@@ -1,0 +1,118 @@
+<section class="room-form-page">
+  @if (loading()) {
+    <p class="status-text">Loading room…</p>
+  } @else if (notFound()) {
+    <p class="status-text error-text">Room not found.</p>
+  } @else {
+    <form class="add-edit-room" [formGroup]="form" (ngSubmit)="save()">
+      <h1>{{ pageTitle() }}</h1>
+
+      <div class="form-fields">
+        <div class="field-group">
+          <label class="label-container" for="roomNumber">
+            <span class="label-text">Room Number</span>
+            <span class="required-mark">*</span>
+          </label>
+          <input
+            id="roomNumber"
+            type="text"
+            class="input-box"
+            [class.input-error]="form.controls.roomNumber.invalid && form.controls.roomNumber.touched"
+            formControlName="roomNumber"
+          />
+          @if (form.controls.roomNumber.invalid && form.controls.roomNumber.touched) {
+            <p class="field-error">
+              @if (form.controls.roomNumber.errors?.['required']) {
+                Room number is required.
+              } @else if (form.controls.roomNumber.errors?.['maxlength']) {
+                Room number must be 20 characters or fewer.
+              }
+            </p>
+          }
+        </div>
+
+        <div class="field-group">
+          <label class="label-container" for="adultsCapacity">
+            <span class="label-text">Adults Capacity</span>
+            <span class="required-mark">*</span>
+          </label>
+          <input
+            id="adultsCapacity"
+            type="number"
+            class="input-box"
+            [class.input-error]="form.controls.adultsCapacity.invalid && form.controls.adultsCapacity.touched"
+            formControlName="adultsCapacity"
+          />
+          @if (form.controls.adultsCapacity.invalid && form.controls.adultsCapacity.touched) {
+            <p class="field-error">
+              @if (form.controls.adultsCapacity.errors?.['required']) {
+                Adults capacity is required.
+              } @else if (form.controls.adultsCapacity.errors?.['min']) {
+                Adults capacity must be at least 1.
+              } @else if (form.controls.adultsCapacity.errors?.['max']) {
+                Adults capacity must be 20 or fewer.
+              }
+            </p>
+          }
+        </div>
+
+        <div class="field-group">
+          <label class="label-container" for="childrenCapacity">
+            <span class="label-text">Children Capacity</span>
+            <span class="required-mark">*</span>
+          </label>
+          <input
+            id="childrenCapacity"
+            type="number"
+            class="input-box"
+            [class.input-error]="form.controls.childrenCapacity.invalid && form.controls.childrenCapacity.touched"
+            formControlName="childrenCapacity"
+          />
+          @if (form.controls.childrenCapacity.invalid && form.controls.childrenCapacity.touched) {
+            <p class="field-error">
+              @if (form.controls.childrenCapacity.errors?.['required']) {
+                Children capacity is required.
+              } @else if (form.controls.childrenCapacity.errors?.['min']) {
+                Children capacity must be at least 0.
+              } @else if (form.controls.childrenCapacity.errors?.['max']) {
+                Children capacity must be 20 or fewer.
+              }
+            </p>
+          }
+        </div>
+
+        <div class="field-group">
+          <label class="label-container" for="price">
+            <span class="label-text">Price</span>
+            <span class="required-mark">*</span>
+          </label>
+          <input
+            id="price"
+            type="number"
+            class="input-box"
+            [class.input-error]="form.controls.price.invalid && form.controls.price.touched"
+            formControlName="price"
+          />
+          @if (form.controls.price.invalid && form.controls.price.touched) {
+            <p class="field-error">
+              @if (form.controls.price.errors?.['required']) {
+                Price is required.
+              } @else if (form.controls.price.errors?.['min']) {
+                Price cannot be negative.
+              }
+            </p>
+          }
+        </div>
+
+        @if (submitError()) {
+          <p class="field-error submit-error">{{ submitError() }}</p>
+        }
+      </div>
+
+      <div class="actions-row">
+        <button type="submit" class="save-btn" [disabled]="submitting()">Save</button>
+        <span class="cancel-group"> or <a routerLink="/rooms" class="cancel-link">Cancel</a> </span>
+      </div>
+    </form>
+  }
+</section>
